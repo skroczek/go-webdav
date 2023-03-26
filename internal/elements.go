@@ -373,21 +373,8 @@ type GetETag struct {
 
 type ETag string
 
-func (etag *ETag) UnmarshalText(b []byte) error {
-	s, err := strconv.Unquote(string(b))
-	if err != nil {
-		return fmt.Errorf("webdav: failed to unquote ETag: %v", err)
-	}
-	*etag = ETag(s)
-	return nil
-}
-
-func (etag ETag) MarshalText() ([]byte, error) {
-	return []byte(etag.String()), nil
-}
-
 func (etag ETag) String() string {
-	return fmt.Sprintf("%q", string(etag))
+	return fmt.Sprintf("%s", string(etag))
 }
 
 // https://tools.ietf.org/html/rfc4918#section-14.5
